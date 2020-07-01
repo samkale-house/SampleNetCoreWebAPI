@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+            integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            function LoadList(result) {
+                $("#ListProd").empty();
+                $.each(result, function (index, val) {
+                    $("#ListProd").append(val);
+                });
+            }
+
+            $('#btngetProd').click(function () {
+                $.ajax({
+                    url: "https://localhost:44361/product/ProductByCategory",
+                    type: "GET",
+                    data: "category=Food",
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(XMLHttpRequest.responseText);
+                    },
+                    success: LoadList(result)
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Hellllo</h1>
+    Let's display List of Food category:Click below button
+    <input id="btngetProd" type="button" value="Get Food Products" />
+    <ul id="ListProd"></ul>
+</body>
+</html>
